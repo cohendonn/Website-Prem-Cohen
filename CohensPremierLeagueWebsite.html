@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Premier League Teams</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: linear-gradient(135deg, #410093, #7300ff);
+        color: white;
+        text-align: center;
+        padding: 20px;
+    }
+    #team-img {
+        width: 350px;
+        height: 220px;
+        border-radius: 10px;
+        object-fit: cover;
+        border: 4px solid white;
+        box-shadow: 0 0 20px rgba(255,255,255,0.5);
+    }
+    ul {
+        columns: 2;
+        padding: 0;
+        list-style: none;
+        margin-top: 20px;
+    }
+    li { margin: 8px 0; }
+    a {
+        cursor: pointer;
+        font-weight: bold;
+        background: white;
+        color: #410093;
+        padding: 6px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        display: inline-block;
+        transition: 0.3s;
+    }
+    a:hover {
+        background: #eaeaea;
+        transform: scale(1.05);
+    }
+    #info-box {
+        background: rgba(0,0,0,0.35);
+        padding: 15px;
+        border-radius: 10px;
+        width: 80%;
+        margin: 20px auto;
+        display: none;
+    }
+</style>
+</head>
+<body>
+
+<h1>Premier League Teams</h1>
+<p>Click a team to see their info 👇</p>
+
+<img id="team-img" 
+     src="https://upload.wikimedia.org/wikipedia/en/f/f2/Premier_League_Logo.svg" 
+     alt="Premier League Logo">
+<p id="team-name">Premier League</p>
+
+<div id="info-box"></div>
+
+<h2>Teams</h2>
+<ul>
+    <li><a onclick="showTeam('Arsenal')">Arsenal</a></li>
+    <li><a onclick="showTeam('Aston Villa')">Aston Villa</a></li>
+    <li><a onclick="showTeam('AFC Bournemouth')">AFC Bournemouth</a></li>
+    <li><a onclick="showTeam('Brentford')">Brentford</a></li>
+    <li><a onclick="showTeam('Brighton')">Brighton</a></li>
+    <li><a onclick="showTeam('Chelsea')">Chelsea</a></li>
+    <li><a onclick="showTeam('Crystal Palace')">Crystal Palace</a></li>
+    <li><a onclick="showTeam('Everton')">Everton</a></li>
+    <li><a onclick="showTeam('Fulham')">Fulham</a></li>
+    <li><a onclick="showTeam('Ipswich Town')">Ipswich Town</a></li>
+    <li><a onclick="showTeam('Leicester City')">Leicester City</a></li>
+    <li><a onclick="showTeam('Liverpool')">Liverpool</a></li>
+    <li><a onclick="showTeam('Manchester City')">Manchester City</a></li>
+    <li><a onclick="showTeam('Manchester United')">Manchester United</a></li>
+    <li><a onclick="showTeam('Newcastle United')">Newcastle United</a></li>
+    <li><a onclick="showTeam('Nottingham Forest')">Nottingham Forest</a></li>
+    <li><a onclick="showTeam('Southampton')">Southampton</a></li>
+    <li><a onclick="showTeam('Tottenham Hotspur')">Tottenham Hotspur</a></li>
+    <li><a onclick="showTeam('West Ham United')">West Ham United</a></li>
+    <li><a onclick="showTeam('Wolverhampton Wanderers')">Wolves</a></li>
+</ul>
+
+<script>
+    const teams = [
+        {name:"Arsenal",img:"https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg",info:"Stadium: Emirates Stadium<br>Founded: 1886"},
+        {name:"Aston Villa", img:"https://upload.wikimedia.org/wikipedia/en/thumb/f/f9/Aston_Villa_FC_crest_%282016%29.svg/1200px-Aston_Villa_FC_crest_%282016%29.svg.png", info:"Stadium: Villa Park<br>Founded: 1874"},
+        {name:"AFC Bournemouth",img:"https://upload.wikimedia.org/wikipedia/en/e/e5/AFC_Bournemouth_%282013%29.svg",info:"Stadium: Vitality Stadium<br>Founded: 1899"},
+        {name:"Brentford",img:"https://upload.wikimedia.org/wikipedia/en/2/2a/Brentford_FC_crest.svg",info:"Stadium: Gtech Community Stadium<br>Founded: 1889"},
+        {name:"Brighton",img:"https://upload.wikimedia.org/wikipedia/en/f/fd/Brighton_%26_Hove_Albion_logo.svg",info:"Stadium: Amex Stadium<br>Founded: 1901"},
+        {name:"Chelsea",img:"https://upload.wikimedia.org/wikipedia/en/c/cc/Chelsea_FC.svg",info:"Stadium: Stamford Bridge<br>Founded: 1905"},
+        {name:"Crystal Palace",img:"https://upload.wikimedia.org/wikipedia/en/0/0c/Crystal_Palace_FC_logo.svg",info:"Stadium: Selhurst Park<br>Founded: 1905"},
+        {name:"Everton",img:"https://upload.wikimedia.org/wikipedia/en/7/7c/Everton_FC_logo.svg",info:"Stadium: Goodison Park<br>Founded: 1878"},
+        {name:"Fulham",img:"https://upload.wikimedia.org/wikipedia/en/3/3e/Fulham_FC_%28shield%29.svg",info:"Stadium: Craven Cottage<br>Founded: 1879"},
+        {name:"Ipswich Town",img:"https://upload.wikimedia.org/wikipedia/en/4/43/Ipswich_Town.svg",info:"Stadium: Portman Road<br>Founded: 1878"},
+        {name:"Leicester City",img:"https://upload.wikimedia.org/wikipedia/en/2/2d/Leicester_City_crest.svg",info:"Stadium: King Power Stadium<br>Founded: 1884"},
+        {name:"Liverpool",img:"https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg",info:"Stadium: Anfield<br>Founded: 1892"},
+        {name:"Manchester City",img:"https://upload.wikimedia.org/wikipedia/en/e/eb/Manchester_City_FC_badge.svg",info:"Stadium: Etihad Stadium<br>Founded: 1880"},
+        {name:"Manchester United",img:"https://upload.wikimedia.org/wikipedia/en/7/7a/Manchester_United_FC_crest.svg",info:"Stadium: Old Trafford<br>Founded: 1878"},
+        {name:"Newcastle United",img:"https://upload.wikimedia.org/wikipedia/en/5/56/Newcastle_United_Logo.svg",info:"Stadium: St James' Park<br>Founded: 1892"},
+        {name:"Nottingham Forest",img:"https://upload.wikimedia.org/wikipedia/en/7/70/Nottingham_Forest_logo.svg",info:"Stadium: City Ground<br>Founded: 1865"},
+        {name:"Southampton",img:"https://upload.wikimedia.org/wikipedia/en/c/c9/FC_Southampton.svg",info:"Stadium: St Mary's Stadium<br>Founded: 1885"},
+        {name:"Tottenham Hotspur",img:"https://upload.wikimedia.org/wikipedia/en/b/b4/Tottenham_Hotspur.svg",info:"Stadium: Tottenham Hotspur Stadium<br>Founded: 1882"},
+        {name:"West Ham United",img:"https://upload.wikimedia.org/wikipedia/en/c/c2/West_Ham_United_FC_logo.svg",info:"Stadium: London Stadium<br>Founded: 1895"},
+        {name:"Wolves",img:"https://upload.wikimedia.org/wikipedia/en/f/fc/Wolverhampton_Wanderers.svg",info:"Stadium: Molineux Stadium<br>Founded: 1877"}
+    ];
+
+    let index = 0;
+
+    function rotateImage() {
+        index = (index + 1) % teams.length;
+        document.getElementById("team-img").src = teams[index].img;
+        document.getElementById("team-name").innerText = teams[index].name;
+    }
+
+    setInterval(rotateImage, 600000); // 10 min
+
+    function showTeam(name){
+        const t = teams.find(team => team.name === name);
+        document.getElementById("team-img").src = t.img;
+        document.getElementById("team-name").innerText = t.name;
+        document.getElementById("info-box").innerHTML = t.info;
+        document.getElementById("info-box").style.display = "block";
+    }
+</script>
+
+</body>
+</html>
+
